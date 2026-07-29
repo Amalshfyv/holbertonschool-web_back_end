@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-""" MongoDB Operations with Python using pymongo """
+"""listing all databases"""
+
+
+from pymongo import MongoClient
 
 
 def list_all(mongo_collection):
-    """ List all documents in Python """
-    documents = mongo_collection.find()
-
-    if documents.count() == 0:
+    """
+    Lists all documents in a MongoDB collection.
+    """
+    if mongo_collection is None:
         return []
-
-    return documents
+    return list(mongo_collection.find())

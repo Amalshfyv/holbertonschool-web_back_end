@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-""" MongoDB Operations with Python using pymongo """
+"""Module that contains the function insert_school"""
+from pymongo import MongoClient
 
 
 def insert_school(mongo_collection, **kwargs):
-    """ Inserts a new document in a collection based on kwargs """
-    document_id = mongo_collection.insert(kwargs)
-    return document_id
+    """Inserts a new document into a collection based on kwargs"""
+    result = mongo_collection.insert_one(kwargs)
+    return result.inserted_id

@@ -1,12 +1,6 @@
 export default function hasValuesFromArray(set, array) {
-  let status = true;
-  array.map((element) => {
-    if (set.has(element)) {
-      status = true;
-    } else {
-      status = false;
+    if (!Array.isArray(array)) {
+        return false;
     }
-    return status;
-  });
-  return status;
+    return array.every((value) => set.has(value));
 }

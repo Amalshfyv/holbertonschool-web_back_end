@@ -1,19 +1,13 @@
-import getStudentsByLocation from './2-get_students_by_loc';
-
-export default function updateStudentGradeByCity(students, city, newGrades) {
-  function checkGrades(newGrade, validStudents) {
-    const student = validStudents.filter((student) => student.id === newGrade.studentId);
-    student[0].grade = newGrade.grade;
-    return student;
-  }
-  const validStudents = getStudentsByLocation(students, city);
-  newGrades.map((newGrade) => checkGrades(newGrade, validStudents));
-  validStudents.map((student) => {
-    const newStudent = student;
-    if (!student.grade) {
-      newStudent.grade = 'N/A';
+export default function updateGradeByCity(students, city, newGrades) {
+    if (!Array.isArray(students) || !Array.isArray(newGrades)) {
+        return [];
     }
-    return newStudent;
-  });
-  return validStudents;
+
+    return students.filter((student) => student.location === city).map((student) => {
+        const gradeObj = newGrades.find((grade) => grade.studentId === student.id);
+        if (gradeObj) {
+            return { ...student, grade: gradeObj.grade };
+        }
+        return { ...student, grade: 'N/A' };
+    });
 }
